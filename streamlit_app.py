@@ -150,7 +150,7 @@ scaler = joblib.load("scaler.pkl")  # Ensure this file exists in GitHub
 label_encoder = joblib.load("label_encoder.pkl")  # Ensure this exists
 
 # Streamlit UI
-st.title("Sales Revenue Prediction App")
+st.title("Sales Revenue Prediction Dashboard")
 st.write("Enter the values to predict revenue.")
 
 st.sidebar.header("Enter Product Details")
