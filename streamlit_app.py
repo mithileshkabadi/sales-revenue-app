@@ -1,5 +1,6 @@
 import streamlit as st
 import joblib
+import pandas as pd
 
 # Load trained model
 model = joblib.load("xgboost_sales_model.pkl")
