@@ -24,16 +24,13 @@ df.drop(columns=['Customer ID'], inplace=True, errors='ignore')
 df.fillna({
     'Region': 'Unknown',
     'Shipping Status': 'Unknown',
-    'Age': df['Age'].median()
 }, inplace=True)
 
 # Generate Time-based Features
 df['Year'] = df['Order Date'].dt.year
-df['Month'] = df['Order Date'].dt.month
-df['Day'] = df['Order Date'].dt.day
 df['Weekday'] = df['Order Date'].dt.day_name()
 df['Quarter'] = df['Order Date'].dt.quarter
-df['Is Weekend'] = df['Weekday'].isin(['Saturday', 'Sunday']).astype(int)
+
 
 # Calculate Revenue
 df['Total Revenue'] = df['Quantity'] * df['Unit Price']
