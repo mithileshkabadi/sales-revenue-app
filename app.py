@@ -12,7 +12,7 @@ import pickle
 import numpy as np
 
 # Load the trained model
-with open("xgboost_sales_model.pkl", "rb") as file:
+with open("sales_revenue_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # Streamlit UI
