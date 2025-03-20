@@ -29,7 +29,7 @@ category = st.selectbox("Product Category", ["Electronics", "Accessories", "Wear
 region = st.selectbox("Region", ["North", "South", "East", "West", "Unknown"])
 shipping_status = st.selectbox("Shipping Status", ["Pending", "Delivered", "Returned", "Unknown"])
 
-# Ensure one-hot encoding has the exact same number of features as training (16 total)
+# ✅ One-hot encode categories exactly as done in training
 category_encoded = [
     1 if category == "Electronics" else 0, 
     1 if category == "Accessories" else 0,  
@@ -54,7 +54,7 @@ shipping_status_encoded = [
 
 # Button to predict revenue
 if st.button("Predict Revenue"):
-    # ✅ Ensure total input features = 16
+    # ✅ Ensure total input features = model's expected input shape
     input_data = np.array([[unit_price, quantity, shipping_fee] + category_encoded + region_encoded + shipping_status_encoded])
 
     # Predict
