@@ -25,32 +25,36 @@ quantity = st.number_input("Quantity", min_value=1, value=1)
 shipping_fee = st.number_input("Shipping Fee ($)", min_value=0.0, value=5.0)
 
 # Categorical inputs
-category = st.selectbox("Product Category", ["Electronics", "Accessories", "Wearables"])
-region = st.selectbox("Region", ["North", "South", "East", "West"])
-shipping_status = st.selectbox("Shipping Status", ["Pending", "Delivered", "Returned"])
+category = st.selectbox("Product Category", ["Electronics", "Accessories", "Wearables", "Unknown"])
+region = st.selectbox("Region", ["North", "South", "East", "West", "Unknown"])
+shipping_status = st.selectbox("Shipping Status", ["Pending", "Delivered", "Returned", "Unknown"])
 
-# ✅ Ensure the categorical encoding matches the trained model feature count (12 total)
+# Ensure one-hot encoding has the exact same number of features as training (16 total)
 category_encoded = [
     1 if category == "Electronics" else 0, 
-    1 if category == "Accessories" else 0, 
-    1 if category == "Wearables" else 0  # This was missing before
+    1 if category == "Accessories" else 0,  
+    1 if category == "Wearables" else 0,  
+    1 if category == "Unknown" else 0  
 ]
 
 region_encoded = [
     1 if region == "North" else 0, 
     1 if region == "South" else 0, 
     1 if region == "East" else 0, 
-    1 if region == "West" else 0  # This was missing before
+    1 if region == "West" else 0,  
+    1 if region == "Unknown" else 0  
 ]
 
 shipping_status_encoded = [
     1 if shipping_status == "Pending" else 0, 
-    1 if shipping_status == "Delivered" else 0, 
+    1 if shipping_status == "Delivered" else 0,  
+    1 if shipping_status == "Returned" else 0,  
+    1 if shipping_status == "Unknown" else 0  
 ]
 
 # Button to predict revenue
 if st.button("Predict Revenue"):
-    # ✅ Ensure total input features = 12 (Fix the missing features)
+    # ✅ Ensure total input features = 16
     input_data = np.array([[unit_price, quantity, shipping_fee] + category_encoded + region_encoded + shipping_status_encoded])
 
     # Predict
