@@ -12,7 +12,7 @@ import pickle
 import numpy as np
 
 # Load the trained model
-with open("sales_revenue_model.pkl", "rb") as file:
+with open("xgboost_sales_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # Streamlit UI
@@ -46,7 +46,6 @@ region_encoded = [
 shipping_status_encoded = [
     1 if shipping_status == "Pending" else 0, 
     1 if shipping_status == "Delivered" else 0, 
-    1 if shipping_status == "Returned" else 0  # This was missing before
 ]
 
 # Button to predict revenue
@@ -59,4 +58,3 @@ if st.button("Predict Revenue"):
 
     # Show prediction
     st.success(f"Predicted Total Price: ${prediction:.2f}")
-
