@@ -12,7 +12,7 @@ import pickle
 import numpy as np
 
 # Load the trained model
-with open("sales_revenue_model.pkl", "rb") as file:
+with open("xgboost_sales_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # Streamlit UI
@@ -29,26 +29,29 @@ category = st.selectbox("Product Category", ["Electronics", "Accessories", "Wear
 region = st.selectbox("Region", ["North", "South", "East", "West"])
 shipping_status = st.selectbox("Shipping Status", ["Pending", "Delivered", "Returned"])
 
-# Ensure the number of features matches the trained model (12 total)
+# ✅ Ensure the categorical encoding matches the trained model feature count (12 total)
 category_encoded = [
     1 if category == "Electronics" else 0, 
-    1 if category == "Accessories" else 0  # Remove extra encoding if needed
+    1 if category == "Accessories" else 0, 
+    1 if category == "Wearables" else 0  # This was missing before
 ]
 
 region_encoded = [
     1 if region == "North" else 0, 
     1 if region == "South" else 0, 
-    1 if region == "East" else 0  # Ensure this matches the model
+    1 if region == "East" else 0, 
+    1 if region == "West" else 0  # This was missing before
 ]
 
 shipping_status_encoded = [
     1 if shipping_status == "Pending" else 0, 
-    1 if shipping_status == "Delivered" else 0  # Ensure this matches the model
+    1 if shipping_status == "Delivered" else 0, 
+    1 if shipping_status == "Returned" else 0  # This was missing before
 ]
 
 # Button to predict revenue
 if st.button("Predict Revenue"):
-    # Ensure total features = 12
+    # ✅ Ensure total input features = 12 (Fix the missing features)
     input_data = np.array([[unit_price, quantity, shipping_fee] + category_encoded + region_encoded + shipping_status_encoded])
 
     # Predict
@@ -56,3 +59,4 @@ if st.button("Predict Revenue"):
 
     # Show prediction
     st.success(f"Predicted Total Price: ${prediction:.2f}")
+
