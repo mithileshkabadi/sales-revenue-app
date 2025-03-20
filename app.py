@@ -29,29 +29,26 @@ category = st.selectbox("Product Category", ["Electronics", "Accessories", "Wear
 region = st.selectbox("Region", ["North", "South", "East", "West"])
 shipping_status = st.selectbox("Shipping Status", ["Pending", "Delivered", "Returned"])
 
-# Ensure all categorical features match the training dataset structure
+# Ensure the number of features matches the trained model (12 total)
 category_encoded = [
-    1 if category == "Electronics" else 0,
-    1 if category == "Accessories" else 0,
-    1 if category == "Wearables" else 0
+    1 if category == "Electronics" else 0, 
+    1 if category == "Accessories" else 0  # Remove extra encoding if needed
 ]
 
 region_encoded = [
-    1 if region == "North" else 0,
-    1 if region == "South" else 0,
-    1 if region == "East" else 0,
-    1 if region == "West" else 0
+    1 if region == "North" else 0, 
+    1 if region == "South" else 0, 
+    1 if region == "East" else 0  # Ensure this matches the model
 ]
 
 shipping_status_encoded = [
-    1 if shipping_status == "Pending" else 0,
-    1 if shipping_status == "Delivered" else 0,
-    1 if shipping_status == "Returned" else 0
+    1 if shipping_status == "Pending" else 0, 
+    1 if shipping_status == "Delivered" else 0  # Ensure this matches the model
 ]
 
 # Button to predict revenue
 if st.button("Predict Revenue"):
-    # Prepare input features (Ensure the number of inputs matches model training)
+    # Ensure total features = 12
     input_data = np.array([[unit_price, quantity, shipping_fee] + category_encoded + region_encoded + shipping_status_encoded])
 
     # Predict
